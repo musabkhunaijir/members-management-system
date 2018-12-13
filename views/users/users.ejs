@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>المستخدمين</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="/icons/add-user.png" type="image/x-icon">
+</head>
+
+<!-- include header/sidebar file -->
+<%- include('../partials/sidebar'); %>
+
+<!-- jQuery Datatable Css -->
+<%- include('../jQuery-datatables-css.ejs'); %>
+
+<link rel="stylesheet" href="/stylesheets/users/users.css">
+
+<body dir="rtl">
+  <div class="container">
+    <div class="container main-container">
+      <form method="POST" action="/users">
+        <div class="form-group">
+          <label for="name">اسم المستخدم</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="الاسم" autofocus required>
+        </div>
+
+        <div class="form-group">
+          <label for="name">الولاية</label>
+          <select class="form-control filter" name="state_id">
+            <% states.forEach(function(state){ %>
+            <option value="<%=state.state_id%>">
+              <%=state.name%>
+            </option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">الهاتف</label>
+          <input type="text" class="form-control" id="phone" name="phone" placeholder="0xxxxxxxxxx" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">البريد الإليكتروني</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="example@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">كلمة المرور</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="كلمة المرور" required>
+        </div>
+        <div class="form-group">
+          <input type="checkbox" name="role_id" id="role_id">
+          <label for="role_id">مدير</label>
+        </div>
+        <button type="submit" class="btn btn-primary">إضافة</button>
+      </form>
+
+      <br />
+      <hr>
+      <br />
+
+      <div class="container users-container">
+        <table id="users-table" class="display">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>الاسم</th>
+              <th>الولاية</th>
+              <th>الهاتف</th>
+              <th>البريد الإليكتروني</th>
+              <th>الصلاحية (مدير)</th>
+              <th>خيارات</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <% users.forEach(function(user){ %>
+            <tr>
+              <td>
+                <%=user.user_id%>
+              </td>
+
+              <td>
+                <%=user.name%>
+              </td>
+
+              <td>
+                <%=user.state.name%>
+              </td>
+
+              <td>
+                <%=user.phone%>
+              </td>
+
+              <td>
+                <%=user.email%>
+              </td>
+
+              <td>
+                <%if(user.role_id === 1) {%>
+                &#9989;
+                <%} else {%>
+                &#10007;
+                <%}%>
+              </td>
+
+              <td>
+                <a href="/users/edit/<%= user.user_id %>">
+                  <button id="btn-edit" class="btn btn-warning btn-edit">
+                    تعديل
+                  </button>
+                </a>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+<!-- jQuery Datatable js -->
+<%- include('../jQuery-datatables-js.ejs'); %>
+
+<!-- jQuery Custom Scroller -->
+<!-- included again because of it's confilcts with the jQuery-datatables  -->
+<script src="/javascripts/jquery.mCustomScrollbar.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#users-table').DataTable({
+      "language": {
+        "sProcessing": "جارٍ التحميل...",
+        "sLengthMenu": "أظهر _MENU_ مدخلات",
+        "sZeroRecords": "لم يعثر على أية سجلات",
+        "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+        "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+        "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+        "sInfoPostFix": "",
+        "sSearch": "ابحث:",
+        "sUrl": "",
+        "oPaginate": {
+          "sFirst": "الأول",
+          "sPrevious": "السابق",
+          "sNext": "التالي",
+          "sLast": "الأخير"
+        }
+      }
+    });
+  });
+</script>
+
+</html>

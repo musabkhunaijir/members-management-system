@@ -1,0 +1,33 @@
+{
+  "development": {
+    "username": "edms",
+    "password": "edms@123",
+    "database": "edms",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false,
+    "define": {
+      "timestamps": true,
+      "underscored": true
+    }
+  },
+  "test": {
+    "username": "edms",
+    "password": "edms@123",
+    "database": "edms",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "edms",
+    "password": "edms@123",
+    "database": "edms",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false,
+    "define": {
+      "timestamps": true,
+      "underscored": true
+    }
+  }
+}

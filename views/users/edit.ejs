@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>تعديل مستخدم</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="/icons/edit.png" type="image/x-icon">
+</head>
+
+<!-- include header/sidebar file -->
+<%- include('../partials/sidebar'); %>
+
+<link rel="stylesheet" href="/stylesheets/users/users.css">
+
+<body dir="rtl">
+  <div class="container">
+    <div class="container main-container">
+      <form method="POST" action="/users/edit/<%=user.user_id%>">
+        <div class="form-group">
+          <label for="name">اسم المستخدم</label>
+          <input type="text" class="form-control" value="<%=user.name%>" id="name" name="name" placeholder="الاسم"
+            autofocus required>
+        </div>
+
+        <div class="form-group">
+          <label for="name">الولاية</label>
+          <select class="form-control filter" name="state_id">
+            <% states.forEach(function(state){ %>
+            <option value="<%=state.state_id%>">
+              <%=state.name%>
+            </option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">الهاتف</label>
+          <input type="text" class="form-control" value="<%=user.phone%>" id="phone" name="phone" placeholder="0xxxxxxxxxx" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">البريد الإليكتروني</label>
+          <input type="email" class="form-control" value="<%=user.email%>" id="email" name="email" placeholder="example@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">كلمة المرور</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="كلمة المرور" required>
+        </div>
+        <div class="form-group">
+          <input type="checkbox" name="role_id" id="role_id">
+          <label for="role_id">مدير</label>
+        </div>
+        <button type="submit" class="btn btn-warning" id="btn-edit">تعديل</button>
+      </form>
+</body>
+
+<script>
+  const isAdminTag = document.getElementById('role_id');
+  const roleId = <%=user.role_id%>;
+
+  if (roleId === 1) {
+    isAdminTag.checked = true
+  } else {
+    isAdminTag.checked = false
+  }
+  
+</script>
+
+</html>
